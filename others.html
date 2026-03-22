@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Others | Linh's zone</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="assets/img/favicon.ico">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="wrapper">
+
+    <header>
+      <h1 class="itim-regular" style="text-align:center;">
+        <a href="index.html">Linh's zone</a>
+      </h1>
+      <br>
+      <img src="assets/img/IMG_3179.JPG"
+           alt="Linh" class="center" width="75%" height="75%" id="myImage"/>
+      <script>
+        var eggClicks = 0;
+        document.getElementById('myImage').onclick = function() {
+          eggClicks++;
+          if (eggClicks >= 10) {
+            window.location.href = 'blog.html?ref=egg';
+          }
+        };
+      </script>
+      <br>
+      <ul class="downloads">
+        <li><a class="itim-regular" href="index.html">About</a></li>
+        <li><a class="itim-regular" href="research.html">Research</a></li>
+        <li><a class="itim-regular active" href="others.html">Others</a></li>
+      </ul>
+    </header>
+
+    <section>
+
+      <div class="others-intro">
+        <h2 class="bio-name">Beyond the lab</h2>
+        <p class="bio-footer">I enjoy drawing, making DIY stuff, and watching the sky — trying to recall cloud names, spotting satellites overhead, chasing aurora.</p>
+      </div>
+
+      <div class="w3-card-4 w3-margin w3-white">
+        <div class="w3-container" style="padding-top: 12px;">
+
+          <!-- Tab navigation -->
+          <div class="tab-nav">
+            <button class="tab-btn active" onclick="openTab(event, 'tab-music')">Music</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-drawing')">Drawing</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-writing')">Writing</button>
+          </div>
+
+          <!-- ── Music ──────────────────────────────────────────── -->
+          <div id="tab-music" class="tab-content">
+            <div class="w3-row-padding w3-padding-16 w3-center">
+              <div class="w3-third">
+                <h3>Soft</h3>
+                <p>Go to sleep</p>
+                <iframe style="border-radius:12px"
+                  src="https://open.spotify.com/embed/playlist/4FdDhVoGPgMOMXq5UaGz1q?utm_source=generator"
+                  width="100%" height="352" frameBorder="0"
+                  allowfullscreen=""
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy">
+                </iframe>
+              </div>
+              <div class="w3-third">
+                <h3>Idol time</h3>
+                <p>Rihanna</p>
+                <iframe style="border-radius:12px"
+                  src="https://open.spotify.com/embed/playlist/0x3nhcb7MMgh0oOYY6Tmzi?utm_source=generator"
+                  width="100%" height="352" frameBorder="0"
+                  allowfullscreen=""
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy">
+                </iframe>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Drawing ────────────────────────────────────────── -->
+          <div id="tab-drawing" class="tab-content" style="display:none;">
+            <div class="drawing-grid" style="padding: 12px 0;">
+              <img src="assets/img/Drawings/93028224_2533815453508244_416724579193454592_n.jpg"        alt="Drawing" onclick="openDrawing(0)">
+              <img src="assets/img/Drawings/489453899_3870982706458172_7681093776049949593_n.jpg"       alt="Drawing" onclick="openDrawing(1)">
+              <img src="assets/img/Drawings/489570819_3870035959886180_8153960357685934731_n.jpg"       alt="Drawing" onclick="openDrawing(2)">
+              <img src="assets/img/Drawings/489692304_3870982723124837_2616490004247013078_n.jpg"       alt="Drawing" onclick="openDrawing(3)">
+              <img src="assets/img/Drawings/490033117_3870982719791504_8256920357578763278_n.jpg"       alt="Drawing" onclick="openDrawing(4)">
+              <img src="assets/img/Drawings/490187720_3870982713124838_5999148899075660083_n.jpg"       alt="Drawing" onclick="openDrawing(5)">
+              <img src="assets/img/Drawings/490317916_3870982699791506_5754036103328591459_n.jpg"       alt="Drawing" onclick="openDrawing(6)">
+              <img src="assets/img/Drawings/IMG_20180904_233634_122.jpg"                                alt="Drawing" onclick="openDrawing(7)">
+              <img src="assets/img/Drawings/IMG_20210201_153711_702.jpg"                                alt="Drawing" onclick="openDrawing(8)">
+              <img src="assets/img/Drawings/CamScanner 07-30-2022 15.30.jpg"                           alt="Drawing" onclick="openDrawing(9)">
+              <img src="assets/img/Drawings/IMG_20220801_075643_331.webp"                               alt="Drawing" onclick="openDrawing(10)">
+              <img src="assets/img/Drawings/IMG_20240823_224949.jpg"                                    alt="Drawing" onclick="openDrawing(11)">
+              <img src="assets/img/Drawings/IMG_20240823_225011.jpg"                                    alt="Drawing" onclick="openDrawing(12)">
+              <img src="assets/img/Drawings/IMG_20240823_225026.jpg"                                    alt="Drawing" onclick="openDrawing(13)">
+              <img src="assets/img/Drawings/IMG_20240823_230010.jpg"                                    alt="Drawing" onclick="openDrawing(14)">
+              <img src="assets/img/Drawings/IMG_20241013_094334_746.jpg"                                alt="Drawing" onclick="openDrawing(15)">
+              <img src="assets/img/Drawings/IMG_3549.JPG"                                               alt="Drawing" onclick="openDrawing(16)">
+            </div>
+
+            <!-- Lightbox -->
+            <div id="drawing-modal">
+              <span id="drawing-modal-close" onclick="closeDrawing()">&times;</span>
+              <span class="drawing-nav" id="drawing-prev" onclick="shiftDrawing(-1)">&#8249;</span>
+              <img id="drawing-modal-img" src="" alt="Drawing enlarged">
+              <span class="drawing-nav" id="drawing-next" onclick="shiftDrawing(1)">&#8250;</span>
+              <span id="drawing-counter"></span>
+            </div>
+
+          </div><!-- end tab-drawing -->
+
+          <div id="tab-writing" class="tab-content" style="display:none;">
+
+            <!-- Hidden note bodies — edit content here -->
+            <div id="note-data" style="display:none;">
+              <div data-note="0" data-title="testing" data-date="Mar 22, 2025">
+                <p>Your full note content goes here. Write as much as you want.</p>
+                <p>This is just a placeholder — replace with your actual writing.</p>
+              </div>
+              <div data-note="1" data-title="hi again" data-date="Mar 22, 2025">
+                <p>Another note. You can write multiple paragraphs, use line breaks, whatever you like.</p>
+              </div>
+              <div data-note="2" data-title="hi again" data-date="Mar 22, 2025">
+                <p>Another note. You can write multiple paragraphs, use line breaks, whatever you like.</p>
+              </div>
+              <div data-note="3" data-title="hi again" data-date="Mar 22, 2025">
+                <p>Another note. You can write multiple paragraphs, use line breaks, whatever you like.</p>
+              </div>
+              <div data-note="4" data-title="hi again" data-date="Mar 22, 2025">
+                <p>Another note. You can write multiple paragraphs, use line breaks, whatever you like.</p>
+              </div>
+              <div data-note="5" data-title="hi again" data-date="Mar 22, 2025">
+                <p>Another note. You can write multiple paragraphs, use line breaks, whatever you like.</p>
+              </div>
+
+
+
+
+              <!-- Add more notes by copying a <div data-note="..."> block above -->
+            </div>
+
+            <!-- Flying planes — one per note. Match data-note to the note body above.        -->
+            <!-- Trajectory classes: fly-ltr, fly-ltr-down, fly-ltr-up,                      -->
+            <!--                     fly-rtl, fly-rtl-down, fly-rtl-up                        -->
+            <!-- SVG rotation guide: ltr=45°, ltr-down=60°, ltr-up=30°,                      -->
+            <!--                     rtl=225°, rtl-down=210°, rtl-up=240°                     -->
+            <div class="plane-stage">
+
+              <!-- Clouds -->
+              <div class="cloud cloud-1"></div>
+              <div class="cloud cloud-2"></div>
+              <div class="cloud cloud-3"></div>
+              <div class="cloud cloud-4"></div>
+              <div class="cloud cloud-5"></div>
+              <div class="cloud cloud-6"></div>
+
+              <!-- horizontal right -->
+              <div class="plane-item" data-note="0" style="top:30%; animation-name:fly-ltr; animation-duration:11s; animation-delay:0s;" onclick="openNote(0)">
+                <svg class="plane-svg" style="transform:rotate(45deg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span class="plane-note">testing</span>
+              </div>
+
+              <!-- diagonal: right + going upward -->
+              <div class="plane-item" data-note="1" style="top:55%; animation-name:fly-ltr-up; animation-duration:14s; animation-delay:-6s;" onclick="openNote(1)">
+                <svg class="plane-svg" style="transform:rotate(30deg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span class="plane-note">hi again</span>
+              </div>
+
+              <!-- diagonal: left + going downward -->
+              <div class="plane-item rtl" data-note="2" style="top:40%; animation-name:fly-rtl-down; animation-duration:17s; animation-delay:-3s;" onclick="openNote(2)">
+                <svg class="plane-svg" style="transform:rotate(210deg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span class="plane-note">hi again</span>
+              </div>
+
+              <!-- diagonal: right + going upward -->
+              <div class="plane-item rtl" data-note="3" style="top:50%; animation-name:fly-rtl-up; animation-duration:17s; animation-delay:-5s;" onclick="openNote(3)">
+                <svg class="plane-svg" style="transform:rotate(240deg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span class="plane-note">hi again</span>
+              </div>
+
+              <!-- diagonal: right + going upward -->
+              <div class="plane-item rtl" data-note="4" style="top:20%; animation-name:fly-rtl; animation-duration:17s; animation-delay:-1s;" onclick="openNote(4)">
+                <svg class="plane-svg" style="transform:rotate(225deg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span class="plane-note">hi again</span>
+              </div>
+
+              <!-- diagonal: right + going upward -->
+              <div class="plane-item rtl" data-note="5" style="top:80%; animation-name:fly-ltr-down; animation-duration:17s; animation-delay:-5s;" onclick="openNote(5)">
+                <svg class="plane-svg" style="transform:rotate(60deg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span class="plane-note">hi again</span>
+              </div>
+
+
+
+            </div>
+
+            <!-- Note fullscreen modal -->
+            <div id="note-modal">
+              <span id="note-modal-close" onclick="closeNote()">&times;</span>
+              <div id="note-modal-inner">
+                <p id="note-modal-date"></p>
+                <h2 id="note-modal-title"></h2>
+                <div id="note-modal-body"></div>
+              </div>
+            </div>
+
+          </div><!-- end tab-writing -->
+
+
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <script>
+    // ── Tab switching ──────────────────────────────────────────
+    function openTab(evt, tabName) {
+      document.querySelectorAll('.tab-content').forEach(function(tab) {
+        tab.style.display = 'none';
+      });
+      document.querySelectorAll('.tab-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+      document.getElementById(tabName).style.display = 'block';
+      evt.currentTarget.classList.add('active');
+    }
+
+    // ── Drawing lightbox ───────────────────────────────────────
+    var drawingImages = [
+      'assets/img/Drawings/93028224_2533815453508244_416724579193454592_n.jpg',
+      'assets/img/Drawings/489453899_3870982706458172_7681093776049949593_n.jpg',
+      'assets/img/Drawings/489570819_3870035959886180_8153960357685934731_n.jpg',
+      'assets/img/Drawings/489692304_3870982723124837_2616490004247013078_n.jpg',
+      'assets/img/Drawings/490033117_3870982719791504_8256920357578763278_n.jpg',
+      'assets/img/Drawings/490187720_3870982713124838_5999148899075660083_n.jpg',
+      'assets/img/Drawings/490317916_3870982699791506_5754036103328591459_n.jpg',
+      'assets/img/Drawings/IMG_20180904_233634_122.jpg',
+      'assets/img/Drawings/IMG_20210201_153711_702.jpg',
+      'assets/img/Drawings/CamScanner 07-30-2022 15.30.jpg',
+      'assets/img/Drawings/IMG_20220801_075643_331.webp',
+      'assets/img/Drawings/IMG_20240823_224949.jpg',
+      'assets/img/Drawings/IMG_20240823_225011.jpg',
+      'assets/img/Drawings/IMG_20240823_225026.jpg',
+      'assets/img/Drawings/IMG_20240823_230010.jpg',
+      'assets/img/Drawings/IMG_20241013_094334_746.jpg',
+      'assets/img/Drawings/IMG_3549.JPG'
+    ];
+
+    var drawingIndex = 0;
+
+    function openDrawing(idx) {
+      drawingIndex = idx;
+      updateDrawingModal();
+      document.getElementById('drawing-modal').classList.add('open');
+    }
+
+    function closeDrawing() {
+      document.getElementById('drawing-modal').classList.remove('open');
+    }
+
+    function shiftDrawing(dir) {
+      drawingIndex = (drawingIndex + dir + drawingImages.length) % drawingImages.length;
+      updateDrawingModal();
+    }
+
+    function updateDrawingModal() {
+      document.getElementById('drawing-modal-img').src = drawingImages[drawingIndex];
+      document.getElementById('drawing-counter').textContent =
+        (drawingIndex + 1) + ' / ' + drawingImages.length;
+    }
+
+    document.getElementById('drawing-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeDrawing();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (document.getElementById('note-modal').classList.contains('open')) {
+        if (e.key === 'Escape') closeNote();
+        return;
+      }
+      if (!document.getElementById('drawing-modal').classList.contains('open')) return;
+      if (e.key === 'Escape')      closeDrawing();
+      if (e.key === 'ArrowLeft')   shiftDrawing(-1);
+      if (e.key === 'ArrowRight')  shiftDrawing(1);
+    });
+
+    // ── Note modal ─────────────────────────────────────────────
+    function openNote(idx) {
+      var src = document.querySelector('#note-data [data-note="' + idx + '"]');
+      document.getElementById('note-modal-title').textContent = src.dataset.title;
+      document.getElementById('note-modal-date').textContent  = src.dataset.date;
+      document.getElementById('note-modal-body').innerHTML    = src.innerHTML;
+      document.getElementById('note-modal').classList.add('open');
+    }
+
+    function closeNote() {
+      document.getElementById('note-modal').classList.remove('open');
+    }
+
+    document.getElementById('note-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeNote();
+    });
+
+  </script>
+  <script src="assets/js/scale.fix.js"></script>
+</body>
+</html>

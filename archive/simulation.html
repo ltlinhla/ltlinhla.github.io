@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Anti-MXene Explorer | Linh's zone</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="../assets/img/favicon.ico">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/3dmol@2.0.3/build/3Dmol-min.js"></script>
+  <script src="../assets/js/antimxene_data.js"></script>
+  <style>
+    .sim-controls {
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px;
+    }
+    .sim-select {
+      font-family: inherit; font-size: 13px; padding: 5px 10px;
+      border: 1px solid #c5d3e8; border-radius: 4px;
+      color: #1a3c5e; background: #eef2f7; cursor: pointer;
+    }
+    .sim-select:focus { outline: 2px solid #267CB9; }
+    .sim-label { font-size: 12px; color: #666; }
+    .info-box {
+      background: #f4f8fc; border: 1px solid #dde3eb; border-radius: 6px;
+      padding: 14px; font-size: 13px;
+    }
+    .info-box table { margin: 0; font-size: 12px; }
+    .info-box td, .info-box th { padding: 3px 10px; border-bottom: 1px solid #eef2f7; }
+    .info-box th { color: #555; font-weight: 600; }
+    .stable-star { color: #27ae60; font-weight: bold; }
+    .cur-row { background: #e8f0fa; }
+    #struct-viewer-wrap {
+      position: relative; height: 380px;
+      border: 1px solid #dde3eb; border-radius: 6px;
+      overflow: hidden; background: #f0f4f8;
+    }
+    #viewer-legend {
+      position: absolute; bottom: 8px; left: 8px;
+      font-size: 11px; background: rgba(255,255,255,0.9);
+      padding: 4px 10px; border-radius: 4px; border: 1px solid #dde3eb;
+      pointer-events: none; z-index: 10;
+    }
+    .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+    .bs-img-wrap { text-align: center; }
+    .bs-img-wrap img { max-width: 100%; border-radius: 6px; border: 1px solid #dde3eb; }
+    .bs-notice { font-size: 11px; color: #999; font-style: italic; margin-top: 6px; }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <h1 class="itim-regular" style="text-align:center;">
+      <a href="../index.html">Linh's zone</a>
+    </h1>
+    <br>
+    <img src="../assets/img/IMG_3179.JPG" alt="Linh" class="center" width="75%" height="75%" id="myImage"/>
+    <br>
+    <ul class="downloads">
+      <li><a class="itim-regular" href="../index.html">About</a></li>
+      <li><a class="itim-regular active" href="../research.html">Research</a></li>
+      <li><a class="itim-regular" href="simulation.html">Sim</a></li>
+      <li><a class="itim-regular" href="../others.html">Others</a></li>
+    </ul>
+  </header>
+
+  <section>
+    <div class="cv">
+
+      <!-- Intro -->
+      <div class="w3-panel w3-leftbar w3-light-grey" style="margin-bottom:16px;">
+        <p>
+          <strong>Anti-MXene Explorer</strong> — Interactive DFT results for Anti-MXene 2D materials
+          (M<sub>n+1</sub>N<sub>n+2</sub>, M = transition metal). Energy data from GPAW calculations;
+          structures show the <em>alpha</em> polymorph unit cell.
+          Data from <a href="https://chemrxiv.org/doi/full/10.26434/chemrxiv-2025-jh8mx-v2" target="_blank">La et al., ChemRxiv 2025</a>.
+        </p>
+      </div>
+
+      <!-- ── 1. Energy Chart ──────────────────────────────────── -->
+      <div class="cv-sec">
+        <div class="cv-sec-hd" onclick="toggleCV(this)">
+          DFT Energy per Atom <span class="cv-arrow">▾</span>
+        </div>
+        <div class="cv-sec-bd open">
+          <div class="cv-sec-bd-inner">
+
+            <!-- Stoichiometry filter -->
+            <div class="sim-controls">
+              <span class="sim-label">Stoichiometry:</span>
+              <button class="blog-filter-btn active" onclick="setStoich('all',this)">All</button>
+              <button class="blog-filter-btn" onclick="setStoich('2N3',this)">M₂N₃</button>
+              <button class="blog-filter-btn" onclick="setStoich('3N4',this)">M₃N₄</button>
+              <button class="blog-filter-btn" onclick="setStoich('4N5',this)">M₄N₅</button>
+              <button class="blog-filter-btn" onclick="setStoich('5N6',this)">M₅N₆</button>
+            </div>
+
+            <div id="energy-chart" style="width:100%; height:440px;"></div>
+            <p style="font-size:11px; color:#999; margin-top:4px;">
+              Click a bar to load that structure in the viewer below. Hover for exact values.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 2. Structure Viewer ─────────────────────────────── -->
+      <div class="cv-sec" style="margin-top:8px;">
+        <div class="cv-sec-hd" onclick="toggleCV(this)">
+          Crystal Structure Viewer (alpha polymorph) <span class="cv-arrow">▾</span>
+        </div>
+        <div class="cv-sec-bd open">
+          <div class="cv-sec-bd-inner">
+
+            <div class="sim-controls">
+              <span class="sim-label">Metal:</span>
+              <select id="sel-metal" class="sim-select" onchange="loadViewer()">
+                <option>Cr</option><option>Mn</option><option>Mo</option><option>Nb</option>
+                <option>Ta</option><option>Ti</option><option>V</option><option>W</option>
+              </select>
+              <span class="sim-label">Stoichiometry:</span>
+              <select id="sel-stoich" class="sim-select" onchange="loadViewer()">
+                <option value="2N3">M₂N₃</option><option value="3N4">M₃N₄</option>
+                <option value="4N5">M₄N₅</option><option value="5N6">M₅N₆</option>
+              </select>
+              <span id="struct-title" style="font-size:13px; font-weight:bold; color:#1a3c5e; margin-left:6px;"></span>
+            </div>
+
+            <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+              <!-- 3D Viewer -->
+              <div id="struct-viewer-wrap" style="width:460px; min-width:300px; flex-shrink:0;">
+                <div id="struct-viewer" style="width:100%; height:100%;"></div>
+                <div id="viewer-legend"></div>
+              </div>
+              <!-- Energy table -->
+              <div id="energy-table" style="flex:1; min-width:220px;"></div>
+            </div>
+
+            <p style="font-size:11px; color:#999; margin-top:8px;">
+              Drag to rotate · Scroll to zoom · Right-click drag to pan
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 3. Band Structure ────────────────────────────────── -->
+      <div class="cv-sec" style="margin-top:8px;">
+        <div class="cv-sec-hd" onclick="toggleCV(this)" style="background:#eef2f7; color:#2c3e50;">
+          Band Structure &amp; DOS <span class="cv-arrow">▾</span>
+        </div>
+        <div class="cv-sec-bd">
+          <div class="cv-sec-bd-inner">
+            <div class="sim-controls">
+              <span class="sim-label">Structure (most stable polymorph):</span>
+              <select id="sel-bs" class="sim-select" onchange="loadBS()"></select>
+            </div>
+            <div class="bs-img-wrap">
+              <img id="bs-img" src="" alt="Band structure and DOS">
+              <p class="bs-notice" id="bs-notice"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.cv -->
+  </section>
+</div><!-- /.wrapper -->
+
+<script>
+/* ── helpers ─────────────────────────────────────────────── */
+function toggleCV(hd) {
+  hd.classList.toggle('open');
+  hd.nextElementSibling.classList.toggle('open');
+}
+
+const METALS   = ['Cr','Mn','Mo','Nb','Ta','Ti','V','W'];
+const STOICHS  = ['2N3','3N4','4N5','5N6'];
+const POLY_CLR = {a:'#2e6da4', b:'#e67e22', g:'#27ae60'};
+const POLY_LBL = {a:'α (alpha)', b:'β (beta)', g:'γ (gamma)'};
+const METAL_CLR= {Cr:'#e8704a',Mn:'#c45ab3',Mo:'#5ba35b',Nb:'#8b6bb5',
+                  Ta:'#c97c2e',Ti:'#3a8a8a',V:'#d45050',W:'#5577aa'};
+
+/* energy per atom */
+function epa(key, poly) {
+  const d = AMD.energies[key];
+  return d ? d[poly] / d.n : null;
+}
+
+/* ── Energy Chart ────────────────────────────────────────── */
+let currentStoich = 'all';
+
+function buildChart(stoich) {
+  const traces = [];
+  ['a','b','g'].forEach(p => {
+    const xs = [], ys = [], cds = [], txts = [];
+    const stoichs = stoich === 'all' ? STOICHS : [stoich];
+    stoichs.forEach(s => {
+      METALS.forEach(m => {
+        const key = m + s;
+        const v = epa(key, p);
+        if (v == null) return;
+        xs.push(stoich === 'all' ? `${m} ${s.replace('N','N\u200B')}` : m);
+        ys.push(+v.toFixed(5));
+        cds.push({key, p, m, s});
+        txts.push(`${key} ${POLY_LBL[p]}<br>${v.toFixed(4)} eV/atom`);
+      });
+    });
+    traces.push({
+      type:'bar', name: POLY_LBL[p],
+      x:xs, y:ys, text:txts, customdata:cds,
+      hovertemplate:'%{text}<extra></extra>',
+      marker:{color: POLY_CLR[p]},
+    });
+  });
+
+  const layout = {
+    barmode:'group',
+    plot_bgcolor:'#f8fafc', paper_bgcolor:'#fff',
+    font:{family:'DM Sans, sans-serif', size:12},
+    xaxis:{tickangle: stoich==='all' ? -45 : 0, tickfont:{size:11}},
+    yaxis:{title:'Energy per atom (eV/atom)', titlefont:{size:12}},
+    legend:{orientation:'h', x:0.5, xanchor:'center', y:1.07, font:{size:12}},
+    margin:{t:50, r:20, b: stoich==='all' ? 90 : 50, l:80},
+  };
+
+  Plotly.react('energy-chart', traces, layout, {responsive:true});
+
+  document.getElementById('energy-chart').on('plotly_click', e => {
+    const pt = e.points[0];
+    if (!pt.customdata) return;
+    const {m, s} = pt.customdata;
+    document.getElementById('sel-metal').value  = m;
+    document.getElementById('sel-stoich').value = s;
+    loadViewer();
+    // open structure section if collapsed
+    const secBd = document.querySelector('#struct-viewer-wrap').closest('.cv-sec-bd');
+    if (!secBd.classList.contains('open')) toggleCV(secBd.previousElementSibling);
+    secBd.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+}
+
+function setStoich(s, btn) {
+  currentStoich = s;
+  document.querySelectorAll('.blog-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildChart(s);
+}
+
+/* ── 3D Viewer ───────────────────────────────────────────── */
+let viewer3d = null;
+
+function loadViewer() {
+  const metal  = document.getElementById('sel-metal').value;
+  const stoich = document.getElementById('sel-stoich').value;
+  const key    = metal + stoich;
+
+  document.getElementById('struct-title').textContent = key + ' (α)';
+
+  /* energy table */
+  const d = AMD.energies[key];
+  if (d) {
+    const vals = [{p:'a',v:d.a/d.n},{p:'b',v:d.b/d.n},{p:'g',v:d.g/d.n}]
+                  .sort((x,y)=>x.v-y.v);
+    const best = vals[0].p;
+    const curP = 'a'; // viewer shows alpha
+    document.getElementById('energy-table').innerHTML = `
+      <div class="info-box">
+        <div style="font-size:13px;font-weight:bold;color:#1a3c5e;margin-bottom:8px;">${key}</div>
+        <table>
+          <tr><th>Polymorph</th><th style="text-align:right;">E/atom (eV)</th><th style="text-align:right;">ΔE (meV/atom)</th></tr>
+          ${['a','b','g'].map(p=>{
+            const dE = Math.round((d[p]/d.n - vals[0].v)*1000);
+            return `<tr class="${p===curP?'cur-row':''}">
+              <td>${p===best?'<span class="stable-star">★</span> ':''} ${POLY_LBL[p]}</td>
+              <td style="text-align:right;font-family:monospace;">${(d[p]/d.n).toFixed(5)}</td>
+              <td style="text-align:right;color:${dE===0?'#27ae60':'#666'};">
+                ${dE===0?'0 — most stable':'+'+dE}
+              </td></tr>`;
+          }).join('')}
+        </table>
+        <div style="font-size:11px;color:#888;margin-top:8px;font-style:italic;">${d.n} atoms · DFT/GPAW · highlighted row = current view</div>
+      </div>`;
+  }
+
+  /* 3Dmol */
+  const xyz = AMD.xyz[key];
+  if (!xyz) {
+    document.getElementById('struct-viewer').innerHTML =
+      '<p style="padding:20px;color:#888;">Structure not available.</p>';
+    return;
+  }
+
+  const el = document.getElementById('struct-viewer');
+  el.innerHTML = '';
+  viewer3d = $3Dmol.createViewer(el, {backgroundColor:'#f0f4f8'});
+  viewer3d.addModel(xyz, 'xyz');
+
+  const nClr  = '#4a90d9';
+  const mClr  = METAL_CLR[metal] || '#888';
+  viewer3d.setStyle({elem:'N'},     {sphere:{radius:0.38, color:nClr}, stick:{radius:0.12, color:nClr}});
+  viewer3d.setStyle({elem:metal},   {sphere:{radius:0.58, color:mClr}, stick:{radius:0.12, color:mClr}});
+
+  viewer3d.zoomTo();
+  viewer3d.zoom(0.85);
+  viewer3d.render();
+
+  document.getElementById('viewer-legend').innerHTML =
+    `<span class="legend-dot" style="background:${nClr}"></span>N &nbsp;`+
+    `<span class="legend-dot" style="background:${mClr}"></span>${metal}`;
+}
+
+/* ── Band Structure ──────────────────────────────────────── */
+function initBS() {
+  const sel = document.getElementById('sel-bs');
+  AMD.bs.forEach(f => {
+    const o = document.createElement('option');
+    o.value = f;
+    o.textContent = f.replace('_',' (') + ')';
+    sel.appendChild(o);
+  });
+  loadBS();
+}
+
+function loadBS() {
+  const val = document.getElementById('sel-bs').value;
+  const img = document.getElementById('bs-img');
+  const src = `assets/img/electronic_structure/bs_dos_${val}.png`;
+  img.src = src;
+  img.alt = `Band structure and DOS — ${val}`;
+  document.getElementById('bs-notice').textContent =
+    `${val.replace('_',' (')+') '} — most stable polymorph`;
+
+  img.onerror = () => {
+    document.getElementById('bs-notice').textContent =
+      'Image not yet copied to website assets — run: copy the electronic_structure/ folder to assets/img/';
+    img.style.display = 'none';
+  };
+  img.onload = () => { img.style.display = ''; };
+}
+
+/* ── Init ────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  buildChart('all');
+  loadViewer();
+  initBS();
+});
+</script>
+<script src="../assets/js/scale.fix.js"></script>
+</body>
+</html>
